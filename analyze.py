@@ -22,6 +22,8 @@ class funct():
             if isinstance(c, cls) or isinstance(c, funct):
                 c.parent = self
 
+    def __repr__(self):
+        return "<funct(" + self.name +  ")>"
 
     def set_calls(self, calls):
         self.calls= calls
@@ -46,9 +48,6 @@ class funct():
 
     def __eq__(self, other):
         return type(other) == self.__class__ and other.name == self.name
-
-    def __repr__(self):
-        return self.name
 
 def find_class(function_name, defintions, parent=None):
     found_class = next((c for c in defintions if function_name in c.function_names()), None)
@@ -90,6 +89,9 @@ class cls():
         for c in self.calls:
             if isinstance(c, cls) or isinstance(c, funct):
                 c.parent = self
+
+    def __repr__(self):
+        return "<cls(" + self.name + " functs:[" + ",".join(self.function_names()) + "])>"
 
 
     def set_calls(self, calls):
@@ -163,6 +165,13 @@ def get_names(node):
                 names += flatten(sub_names)
     return names
 
-def call_graph(example, defintions):
-    pass
 
+def save_definitions(defintions, path):
+    from jinja2 import Environment, FileSystemLoader, select_autoescape
+    env = Environment(
+        loader=FileSystemLoader('templates'),
+        autoescape=select_autoescape(['html'])
+    )
+    template = env.get_template('class_defs.html')
+    with open(path, 'w') as f:
+        f.write(template.render(defintions=defintions))

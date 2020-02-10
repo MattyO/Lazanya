@@ -34,7 +34,7 @@ class AnalyseTest(unittest.TestCase):
         definitions = analyze.find_definitions_in_directory('tests/files') 
         self.assertIn(funct('start'), definitions)
         self.assertIn(cls('Example', funct('something'), funct('somethingelse')), definitions)
-        self.assertIn(cls('ThingThree', funct('baz')), definitions)
+        self.assertIn(cls('ThingThree', funct('baz'), funct('call_cycle')), definitions)
 
 
     def test_find_definitions(self):
@@ -130,4 +130,31 @@ class AnalyseTest(unittest.TestCase):
         self.assertEqual(cls('ThingThree', funct('call_cycle')), found_class.calls[0])
         self.assertTrue(found_class.calls[0].calls[0].cycle)
         self.assertEqual(cls("ContainsCycle", funct('zed')), found_class.calls[0].calls[0])
+
+    def test_create_definitions_files(self):
+        import lxml.etree
+        import pathlib
+        import cssselect
+        import os
+        test_files_name ='tests/files/tmp/def_file.html'
+
+        definitions = analyze.find_definitions_in_directory('tests/files') 
+        analyze.save_definitions(definitions, test_files_name)
+
+        doc = lxml.etree.fromstring(pathlib.Path(test_files_name).read_text())
+        results = doc.cssselect('div.class_def h2')
+        example_element_h2 = next(filter(lambda r: r.text == "Example", results), None)
+
+        self.assertEqual(example_element_h2.text, "Example")
+
+        method_list_elements = example_element_h2.getparent().cssselect("ul li")
+        method_list_elements_text = [ m.text for m in method_list_elements ]
+
+        self.assertIn('something', method_list_elements_text)
+        self.assertIn('somethingelse', method_list_elements_text)
+
+
+        os.remove(test_files_name)
+        self.assertFalse(os.path.exists(test_files_name))
+
 

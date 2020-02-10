@@ -30,8 +30,15 @@ class AnalyseTest(unittest.TestCase):
     def test_function_in(self):
         self.assertIn(funct('test'), [funct('test')])
 
+    def test_find_definitions_in_directory(self):
+        definitions = analyze.find_definitions_in_directory('tests/files') 
+        self.assertIn(funct('start'), definitions)
+        self.assertIn(cls('Example', funct('something'), funct('somethingelse')), definitions)
+        self.assertIn(cls('ThingThree', funct('baz')), definitions)
+
+
     def test_find_definitions(self):
-        definitions = analyze.find_definitions('tests/files/tests/files/example.py') 
+        definitions = analyze.find_definitions('tests/files/example.py') 
 
         self.assertIn(funct('start'), definitions)
         self.assertIn(cls('ThingTwo', funct('two')), definitions)
@@ -99,3 +106,28 @@ class AnalyseTest(unittest.TestCase):
         found_class = analyze.find_class('somethingelse', definitions)
         self.assertEqual(len(found_class.calls), 1)
         self.assertEqual(cls('ThingTwo', funct('two')), found_class.calls[0])
+
+
+    def test_calls_link_to_their_parent(self):
+        definitions = analyze.find_definitions('tests/files/example.py') 
+        found_class = analyze.find_class('somethingelse', definitions)
+        self.assertEqual(cls('Example', funct('somethingelse')), found_class.calls[0].parent)
+
+    def test_ancestors(self):
+        definitions = analyze.find_definitions('tests/files/example.py') 
+        found_class = analyze.find_class('start', definitions)
+        ancestors = found_class.calls[0].calls[0].ancestors()
+        self.assertEqual(ancestors[0], funct('start'))
+        self.assertEqual(ancestors[1], cls('Example', funct('somethingelse')))
+        self.assertEqual(ancestors[2], cls("ThingTwo", funct("two")))
+        #, cls('Example', funct('somethingelse')), cls("ThingTwo", funct("two")) ])
+
+
+    def test_cycles_short_circit(self):
+        definitions = analyze.find_definitions('tests/files/more_examples.py') 
+        found_class = analyze.find_class('zed', definitions)
+        self.assertEqual(len(found_class.calls), 1)
+        self.assertEqual(cls('ThingThree', funct('call_cycle')), found_class.calls[0])
+        self.assertTrue(found_class.calls[0].calls[0].cycle)
+        self.assertEqual(cls("ContainsCycle", funct('zed')), found_class.calls[0].calls[0])
+

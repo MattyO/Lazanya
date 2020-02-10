@@ -1,3 +1,4 @@
+import os
 import ast
 
 
@@ -14,6 +15,28 @@ class funct():
             calls.remove(name)
         self.name = name
         self.calls = calls
+        self.parent = None
+        self.cycle = False
+
+        for c in self.calls:
+            if isinstance(c, cls) or isinstance(c, funct):
+                c.parent = self
+
+
+    def set_calls(self, calls):
+        self.calls= calls
+        for c in self.calls:
+            if isinstance(c, cls) or isinstance(c, funct):
+                c.parent = self
+
+
+    def ancestors(self):
+        parents = [self]
+        temp_parent = self.parent
+        while temp_parent is not None:
+            parents.append(temp_parent)
+            temp_parent = temp_parent.parent
+        return list(reversed(parents))
 
     def get_funct(self, name):
         return self
@@ -27,26 +50,61 @@ class funct():
     def __repr__(self):
         return self.name
 
-def find_class(function_name, defintions):
+def find_class(function_name, defintions, parent=None):
     found_class = next((c for c in defintions if function_name in c.function_names()), None)
+    found_return = None
+
     if found_class is not None:
         if isinstance(found_class, cls):
-            calls = [find_class(fname, defintions) for fname in found_class.get_funct(function_name).calls]
-            calls = list(filter(lambda i: i is not None, calls))
-            return cls(found_class.name, funct(function_name), calls=calls )
-
+            found_return = cls(found_class.name, funct(function_name))
         if isinstance(found_class, funct):
-            calls = [find_class(fname, defintions) for fname in found_class.get_funct(function_name).calls]
-            calls = list(filter(lambda i: i is not None, calls))
-            return funct(function_name, calls=calls)
+            found_return = funct(function_name)
 
-    return None
+        calls = []
+        if parent is None:
+            found_return.parent = parent
+            calls = [find_class(fname, defintions, found_return) for fname in found_class.get_funct(function_name).calls]
+            calls = list(filter(lambda i: i is not None, calls))
+            found_return.set_calls(calls)
+        else:
+            if found_return in parent.ancestors():
+                found_return.cycle = True
+            else:
+                found_return.parent = parent
+                calls = [find_class(fname, defintions, found_return) for fname in found_class.get_funct(function_name).calls]
+                calls = list(filter(lambda i: i is not None, calls))
+                found_return.set_calls(calls)
+
+
+
+    return found_return
 
 class cls():
     def __init__(self, name, *functs, calls=[]):
         self.name = name
         self.functs = functs
         self.calls = calls
+        self.parent = None
+        self.cycle = False
+
+        for c in self.calls:
+            if isinstance(c, cls) or isinstance(c, funct):
+                c.parent = self
+
+
+    def set_calls(self, calls):
+        self.calls= calls
+        for c in self.calls:
+            if isinstance(c, cls) or isinstance(c, funct):
+                c.parent = self
+
+    def ancestors(self):
+        parents = [self]
+        temp_parent = self.parent
+        while temp_parent is not None:
+            parents.append(temp_parent)
+            temp_parent = temp_parent.parent
+        return list(reversed(parents))
 
     def function_names(self):
         return [ f.name for f in self.functs ]
@@ -59,9 +117,18 @@ class cls():
                 other.name == self.name and \
                 self.function_names() == other.function_names()
 
+def find_definitions_in_directory(directory):
+    definitions = []
+    for root, dirs, files in os.walk(directory):
+        for f in files:
+            if f.endswith('.py'):
+                definitions += find_definitions(os.path.join(root, f))
+
+    return definitions
+
 def find_definitions(filename):
     defs = []
-    example_file = open("tests/files/example.py", 'r')
+    example_file = open(filename, 'r')
     nodes = ast.parse(example_file.read()).body
     example_file.close()
     for node in nodes:

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <style>
+      .calls { 
+        padding-left: 10px;
+      }
+    </style>
+    <div class="class_def"> 
+      <h2>{{tree.name}}</h2>
+      <div class="calls">
+      <p>calls</p>
+      {% for branch in tree.calls recursive %}
+        <div class="class_def">
+          <h3>
+            {% if branch.is_function() %}
+              {{branch.name}}
+            {% else %}
+              {{branch.name}}.{% for f in branch.functs %}{{f.name}}{% endfor %}
+            {% endif %}
+          </h3>
+          {% if branch.calls %}
+            <div class="calls">
+            <p>calls</p>
+              {{ loop(branch.calls)}}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

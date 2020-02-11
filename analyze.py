@@ -25,6 +25,12 @@ class funct():
     def __repr__(self):
         return "<funct(" + self.name +  ")>"
 
+    def is_function(self):
+        return True
+
+    def is_class(self):
+        return False
+
     def set_calls(self, calls):
         self.calls= calls
         for c in self.calls:
@@ -93,6 +99,11 @@ class cls():
     def __repr__(self):
         return "<cls(" + self.name + " functs:[" + ",".join(self.function_names()) + "])>"
 
+    def is_function(self):
+        return False
+
+    def is_class(self):
+        return True
 
     def set_calls(self, calls):
         self.calls= calls
@@ -175,3 +186,15 @@ def save_definitions(defintions, path):
     template = env.get_template('class_defs.html')
     with open(path, 'w') as f:
         f.write(template.render(defintions=defintions))
+
+def save_tree(tree, path):
+    from jinja2 import Environment, FileSystemLoader, select_autoescape
+    env = Environment(
+        loader=FileSystemLoader('templates'),
+        autoescape=select_autoescape(['html'])
+    )
+    template = env.get_template('call_tree.html')
+    with open(path, 'w') as f:
+        f.write(template.render(tree=tree))
+
+

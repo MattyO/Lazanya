@@ -157,4 +157,26 @@ class AnalyseTest(unittest.TestCase):
         os.remove(test_files_name)
         self.assertFalse(os.path.exists(test_files_name))
 
+    def test_create_graph_file(self):
+        import lxml.etree
+        import pathlib
+        import cssselect
+        import os
+        test_files_name ='tests/files/tmp/tree_file.html'
+
+        definitions = analyze.find_definitions_in_directory('tests/files') 
+        tree = analyze.find_class('start', definitions)
+        analyze.save_tree(tree, test_files_name)
+
+        doc = lxml.etree.fromstring(pathlib.Path(test_files_name).read_text())
+        first_call_h2_element = doc.cssselect('div.class_def h2')
+        self.assertEqual(first_call_h2_element[0].text.strip(), "start")
+        second_call_h3_element = first_call_h2_element[0].getparent().cssselect("div.calls h3")
+        self.assertEqual(second_call_h3_element[0].text.strip(), 'Example.somethingelse')
+        third_call_h3_element = second_call_h3_element[0].getparent().cssselect("div.calls h3")
+        self.assertEqual(third_call_h3_element [0].text.strip(), 'ThingTwo.two')
+
+        os.remove(test_files_name)
+        self.assertFalse(os.path.exists(test_files_name))
+
 

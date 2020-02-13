@@ -10,13 +10,14 @@ def flatten(S):
     return S[:1] + flatten(S[1:])
 
 class funct():
-    def __init__(self, name, calls=[]):
+    def __init__(self, name, calls=[], from_file=None):
         if name in calls:
             calls.remove(name)
         self.name = name
         self.calls = calls
         self.parent = None
         self.cycle = False
+        self.file = from_file
 
         for c in self.calls:
             if isinstance(c, cls) or isinstance(c, funct):
@@ -85,12 +86,13 @@ def find_class(function_name, defintions, parent=None):
     return found_return
 
 class cls():
-    def __init__(self, name, *functs, calls=[]):
+    def __init__(self, name, *functs, calls=[], from_file=None):
         self.name = name
         self.functs = functs
         self.calls = calls
         self.parent = None
         self.cycle = False
+        self.file = from_file
 
         for c in self.calls:
             if isinstance(c, cls) or isinstance(c, funct):
@@ -146,7 +148,7 @@ def find_definitions(filename):
     example_file.close()
     for node in nodes:
         if type(node) == ast.FunctionDef:
-            defs.append(funct(node.name, calls=get_names(node)))
+            defs.append(funct(node.name, calls=get_names(node), from_file=filename))
 
         if type(node) == ast.ClassDef:
             functs = []
@@ -155,7 +157,7 @@ def find_definitions(filename):
                     call_names = get_names(b)
                     call_names.remove(b.name)
                     functs.append(funct(b.name, calls=call_names))
-            defs.append(cls(node.name, *functs))
+            defs.append(cls(node.name, *functs, from_file=filename))
 
     return defs
 

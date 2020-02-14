@@ -1,6 +1,7 @@
 import os
 import ast
 import json
+import pathlib
 
 
 def flatten(S):
@@ -26,6 +27,11 @@ class funct():
 
     def to_dict(self):
         return {'name':self.name, 'type':'function', 'calls': self.calls, 'from_file': self.from_file}
+
+    @classmethod
+    def from_dict(klass, d):
+        return klass(d['name'], calls=d['calls'], from_file=d['from_file'])
+
 
     def __repr__(self):
         return "<funct(" + self.name +  ")>"
@@ -112,6 +118,11 @@ class cls():
             'from_file': self.from_file,
             'functions': [ f.to_dict() for f in self.functs]
         }
+        
+    @classmethod
+    def from_dict(klass, d):
+        return klass(d['name'], *[funct.from_dict(d) for d in d['functions']], from_file=d['from_file'])
+
     def is_function(self):
         return False
 
@@ -193,6 +204,20 @@ def get_names(node):
 def save_definitions_json(defintions, path):
     with open(path, 'w') as f:
         f.write(json.dumps([d.to_dict() for d in defintions]))
+
+def read_definitions_directory(directory):
+    definitions = []
+    for root, dirs, files in os.walk(directory):
+        for f in files:
+            if f.endswith('.def'):
+                def_json = json.loads(pathlib.Path(os.path.join(root, f)).read_text())
+                for d in def_json:
+                    if d['type'] == 'function':
+                        definitions.append(funct.from_dict(d))
+                    if d['type'] == 'class':
+                        definitions.append(cls.from_dict(d))
+
+    return definitions
 
 def save_definitions(defintions, path):
     from jinja2 import Environment, FileSystemLoader, select_autoescape

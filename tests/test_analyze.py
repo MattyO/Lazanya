@@ -2,6 +2,7 @@ import ast
 import unittest
 import pathlib
 import os
+import json
 
 import analyze
 from analyze import funct, cls
@@ -196,7 +197,6 @@ class AnalyseTest(unittest.TestCase):
         )
 
     def test_write_definitions_to_file(self):
-        import json
         test_files_name ='tests/files/tmp/definitions.def'
         definitions = analyze.find_definitions_in_directory('tests/files') 
         analyze.save_definitions_json(definitions, test_files_name )
@@ -210,6 +210,18 @@ class AnalyseTest(unittest.TestCase):
 
         os.remove(test_files_name)
         self.assertFalse(os.path.exists(test_files_name))
+
+    def test_read_defs_from_files(self):
+        test_files_name ='tests/files/tmp/definitions.def'
+        definitions = analyze.find_definitions_in_directory('tests/files') 
+        analyze.save_definitions_json(definitions, test_files_name )
+        hydrated_defs = analyze.read_definitions_directory('tests/files/tmp/')
+
+        self.assertEqual(hydrated_defs, definitions)
+
+        os.remove(test_files_name)
+        self.assertFalse(os.path.exists(test_files_name))
+
 
 
 

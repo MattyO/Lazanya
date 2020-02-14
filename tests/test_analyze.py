@@ -1,5 +1,7 @@
 import ast 
 import unittest
+import pathlib
+import os
 
 import analyze
 from analyze import funct, cls
@@ -133,9 +135,7 @@ class AnalyseTest(unittest.TestCase):
 
     def test_create_definitions_files(self):
         import lxml.etree
-        import pathlib
         import cssselect
-        import os
         test_files_name ='tests/files/tmp/def_file.html'
 
         definitions = analyze.find_definitions_in_directory('tests/files') 
@@ -159,9 +159,7 @@ class AnalyseTest(unittest.TestCase):
 
     def test_create_graph_file(self):
         import lxml.etree
-        import pathlib
         import cssselect
-        import os
         test_files_name ='tests/files/tmp/tree_file.html'
 
         definitions = analyze.find_definitions_in_directory('tests/files') 
@@ -178,5 +176,40 @@ class AnalyseTest(unittest.TestCase):
 
         os.remove(test_files_name)
         self.assertFalse(os.path.exists(test_files_name))
+
+    def test_class_to_dict(self):
+        self.assertEqual(
+            cls('testclass', funct('foo', calls=['one']), funct('bar'), from_file='testfile.py').to_dict(),
+            {   'name':'testclass', 
+                'type': 'class',
+                'from_file': 'testfile.py',
+                'functions': [
+                    {'name':'foo', 'type':'function', 'calls': ['one'], 'from_file': None},
+                    {'name':'bar', 'type':'function', 'calls': [], 'from_file': None}
+                ]
+            }
+        )
+    def test_funct_to_dict(self):
+        self.assertEqual(
+            funct('testfunct', calls=['one', 'foo', 'bar'], from_file='testfile.py').to_dict(),
+            {'name':'testfunct', 'type':'function', 'calls': ['one', 'foo', 'bar'], 'from_file':'testfile.py'}
+        )
+
+    def test_write_definitions_to_file(self):
+        import json
+        test_files_name ='tests/files/tmp/definitions.def'
+        definitions = analyze.find_definitions_in_directory('tests/files') 
+        analyze.save_definitions_json(definitions, test_files_name )
+
+        def_json = json.loads(pathlib.Path(test_files_name).read_text())
+
+        self.assertEqual(
+            [i['name'] for i in def_json], 
+            ['ThingTwo', 'Example', 'start', 'ThingThree', 'ContainsCycle']
+        )
+
+        os.remove(test_files_name)
+        self.assertFalse(os.path.exists(test_files_name))
+
 
 

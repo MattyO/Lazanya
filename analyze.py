@@ -1,5 +1,6 @@
 import os
 import ast
+import json
 
 
 def flatten(S):
@@ -17,11 +18,14 @@ class funct():
         self.calls = calls
         self.parent = None
         self.cycle = False
-        self.file = from_file
+        self.from_file= from_file
 
         for c in self.calls:
             if isinstance(c, cls) or isinstance(c, funct):
                 c.parent = self
+
+    def to_dict(self):
+        return {'name':self.name, 'type':'function', 'calls': self.calls, 'from_file': self.from_file}
 
     def __repr__(self):
         return "<funct(" + self.name +  ")>"
@@ -92,7 +96,7 @@ class cls():
         self.calls = calls
         self.parent = None
         self.cycle = False
-        self.file = from_file
+        self.from_file= from_file
 
         for c in self.calls:
             if isinstance(c, cls) or isinstance(c, funct):
@@ -101,6 +105,13 @@ class cls():
     def __repr__(self):
         return "<cls(" + self.name + " functs:[" + ",".join(self.function_names()) + "])>"
 
+    def to_dict(self):
+        return {   
+            'name': self.name, 
+            'type': 'class',
+            'from_file': self.from_file,
+            'functions': [ f.to_dict() for f in self.functs]
+        }
     def is_function(self):
         return False
 
@@ -178,6 +189,10 @@ def get_names(node):
                 names += flatten(sub_names)
     return names
 
+
+def save_definitions_json(defintions, path):
+    with open(path, 'w') as f:
+        f.write(json.dumps([d.to_dict() for d in defintions]))
 
 def save_definitions(defintions, path):
     from jinja2 import Environment, FileSystemLoader, select_autoescape

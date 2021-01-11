@@ -4,6 +4,37 @@ import json
 import pathlib
 
 
+def call_names(definition):
+    if isinstance(definition, funct):
+        return [(None, definition.name)]
+    else:
+        return [(definition.name, c.name) for c in definition.functs ]
+
+def is_called(name, definitions):
+    definitions[1].functs[1].calls
+    all_calls = set()
+
+    for d in definitions:
+        if isinstance(d, cls):
+            for f in d.functs:
+                if name in f.calls:
+                    return True
+        elif isinstance(d, funct):
+            if name in d.calls:
+                return True
+
+    return False
+
+def find_roots(defintions):
+    roots = []
+
+    for definition in defintions:
+        for object_name, cname in call_names(definition):
+            if not is_called(cname, defintions): # has a child call
+                roots.append(".".join(filter(lambda x: x is not None, [object_name, cname])))
+    return roots
+
+
 def flatten(S):
     if S == []:
         return S

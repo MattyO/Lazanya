@@ -222,6 +222,29 @@ class AnalyseTest(unittest.TestCase):
         os.remove(test_files_name)
         self.assertFalse(os.path.exists(test_files_name))
 
+    def test_find_roots(self):
+        definitions = analyze.find_definitions_in_directory('tests/files') 
+        self.assertTrue('start' in analyze.find_roots(definitions))
+
+    def test_find_orphans(self):
+        definitions = analyze.find_definitions_in_directory('tests/files') 
+        self.assertEqual(analyze.find_orphans(definitions), ['Exampe.something'])
+
+
+    def test_call_names(self):
+        definitions = analyze.find_definitions_in_directory('tests/files') 
+        self.assertEqual(analyze.call_names(definitions[0]), ['two'])
+        self.assertEqual(analyze.call_names(definitions[2]), ['start'])
+
+    def test_is_called(self):
+        definitions = analyze.find_definitions_in_directory('tests/files') 
+        self.assertTrue(analyze.is_called('two', definitions))
+        self.assertTrue(analyze.is_called('somethingelse', definitions))
+        self.assertFalse(analyze.is_called('start', definitions))
+        self.assertFalse(analyze.is_called('notafuncation', definitions))
+
+
+
 
 
 

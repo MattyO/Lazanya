@@ -11,5 +11,3 @@ class ThingThree():
 class ContainsCycle():
     def zed(self):
         ThingThree().call_cycle()
-    
-

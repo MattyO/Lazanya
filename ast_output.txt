@@ -1,0 +1,222 @@
+Ast                                                                                                                                      
+├── ThingTwo:<class '_ast.ClassDef'>                                                                                                     
+│   ├── ThingTwo:<class 'str'>                                                                                                           
+│   ├── body2️⃣<class '_ast.FunctionDef'>                                                                                                  
+│   │   ├── two:<class 'str'>                                                                                                            
+│   │   ├── args:<_ast.arguments object at 0x7f448a638cc0>:<class '_ast.arguments'>                                                      
+│   │   ├── body:<_ast.Return object at 0x7f448a6401d0>:<class '_ast.Return'>                                                            
+│   │   │   └── value:<_ast.Str object at 0x7f448a640dd8>:<class '_ast.Str'>                                                             
+│   │   │       └── foo:<class 'str'>                                                                                                    
+│   │   └── <_ast.Return object at 0x7f448a6401d0>:<class '_ast.Return'>                                                                 
+│   │       └── value:<_ast.Str object at 0x7f448a640dd8>:<class '_ast.Str'>                                                             
+│   │           └── foo:<class 'str'>                                                                                                    
+│   └── two:<class '_ast.FunctionDef'>                                                                                                   
+│       ├── two:<class 'str'>                                                                                                            
+│       ├── args:<_ast.arguments object at 0x7f448a638cc0>:<class '_ast.arguments'>                                                      
+│       ├── body:<_ast.Return object at 0x7f448a6401d0>:<class '_ast.Return'>                                                            
+│       │   └── value:<_ast.Str object at 0x7f448a640dd8>:<class '_ast.Str'>                                                             
+│       │       └── foo:<class 'str'>                                                                                                    
+│       └── <_ast.Return object at 0x7f448a6401d0>:<class '_ast.Return'>                                                                 
+│           └── value:<_ast.Str object at 0x7f448a640dd8>:<class '_ast.Str'>                                                             
+│               └── foo:<class 'str'>                                                                                                    
+├── Example:<class '_ast.ClassDef'>                                                                                                      
+│   ├── Example:<class 'str'>                                                                                                            
+│   ├── body:something:<class '_ast.FunctionDef'>                                                                                        
+│   │   ├── something:<class 'str'>                                                                                                      
+│   │   ├── args:<_ast.arguments object at 0x7f448a657080>:<class '_ast.arguments'>                                                      
+│   │   │   └── args:<_ast.arg object at 0x7f448a6570b8>:<class '_ast.arg'>                                                              
+│   │   │       └── self:<class 'str'>                                                                                                   
+│   │   ├── body:<_ast.Return object at 0x7f448a6570f0>:<class '_ast.Return'>                                                            
+│   │   │   └── value:<_ast.Num object at 0x7f448a657128>:<class '_ast.Num'>                                                             
+│   │   │       └── 0:<class 'int'>                                                                                                      
+│   │   └── <_ast.Return object at 0x7f448a6570f0>:<class '_ast.Return'>                                                                 
+│   │       └── value:<_ast.Num object at 0x7f448a657128>:<class '_ast.Num'>                                                             
+│   │           └── 0:<class 'int'>                                                                                                      
+│   ├── body:somethingelse:<class '_ast.FunctionDef'>                                                                                    
+│   │   ├── somethingelse:<class 'str'>                                                                                                  
+│   │   ├── args:<_ast.arguments object at 0x7f448a657198>:<class '_ast.arguments'>                                                      
+│   │   │   └── args:<_ast.arg object at 0x7f448a6571d0>:<class '_ast.arg'>                                                              
+│   │   │       └── self:<class 'str'>                                                                                                   
+│   │   ├── body:<_ast.Assign object at 0x7f4488f42518>:<class '_ast.Assign'>                                                            
+│   │   │   ├── targets:<_ast.Name object at 0x7f4488f42208>:<class '_ast.Name'>                                                         
+│   │   │   │   ├── three:<class 'str'>                                                                                                  
+│   │   │   │   └── ctx:<_ast.Store object at 0x7f448a9c2f28>:<class '_ast.Store'>                                                       
+│   │   │   └── value:<_ast.Str object at 0x7f4488f42550>:<class '_ast.Str'>                                                             
+│   │   │       └── bar:<class 'str'>                                                                                                    
+│   │   ├── body:<_ast.Expr object at 0x7f4488f42588>:<class '_ast.Expr'>                                                                
+│   │   │   └── value:<_ast.Call object at 0x7f4488f425c0>:<class '_ast.Call'>                                                           
+│   │   │       ├── func:<_ast.Attribute object at 0x7f4488f425f8>:<class '_ast.Attribute'>                                              
+│   │   │       │   ├── value:<_ast.Name object at 0x7f4488f42630>:<class '_ast.Name'>                                                   
+│   │   │       │   │   ├── self:<class 'str'>                                                                                           
+│   │   │       │   │   └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                 
+│   │   │       │   ├── takes_params:<class 'str'>                                                                                       
+│   │   │       │   └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                     
+│   │   │       └── args:<_ast.Call object at 0x7f4488f42668>:<class '_ast.Call'>                                                        
+│   │   │           └── func:<_ast.Attribute object at 0x7f4488f426a0>:<class '_ast.Attribute'>                                          
+│   │   │               ├── value:<_ast.Name object at 0x7f4488f426d8>:<class '_ast.Name'>                                               
+│   │   │               │   ├── self:<class 'str'>                                                                                       
+│   │   │               │   └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                             
+│   │   │               ├── something:<class 'str'>                                                                                      
+│   │   │               └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                 
+│   │   ├── body:<_ast.Expr object at 0x7f4488f42710>:<class '_ast.Expr'>                                                                
+│   │   │   └── value:<_ast.Call object at 0x7f4488f42748>:<class '_ast.Call'>                                                           
+│   │   │       └── func:<_ast.Attribute object at 0x7f4488f42780>:<class '_ast.Attribute'>                                              
+│   │   │           ├── value:<_ast.Call object at 0x7f4488f427b8>:<class '_ast.Call'>                                                   
+│   │   │           │   └── func:<_ast.Name object at 0x7f4488f427f0>:<class '_ast.Name'>                                                
+│   │   │           │       ├── ThingTwo:<class 'str'>                                                                                   
+│   │   │           │       └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                             
+│   │   │           ├── two:<class 'str'>                                                                                                
+│   │   │           └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                     
+│   │   ├── <_ast.Assign object at 0x7f4488f42518>:<class '_ast.Assign'>                                                                 
+│   │   │   ├── targets:<_ast.Name object at 0x7f4488f42208>:<class '_ast.Name'>                                                         
+│   │   │   │   ├── three:<class 'str'>                                                                                                  
+│   │   │   │   └── ctx:<_ast.Store object at 0x7f448a9c2f28>:<class '_ast.Store'>                                                       
+│   │   │   └── value:<_ast.Str object at 0x7f4488f42550>:<class '_ast.Str'>                                                             
+│   │   │       └── bar:<class 'str'>                                                                                                    
+│   │   ├── <_ast.Expr object at 0x7f4488f42588>:<class '_ast.Expr'>                                                                     
+│   │   │   └── value:<_ast.Call object at 0x7f4488f425c0>:<class '_ast.Call'>                                                           
+│   │   │       ├── func:<_ast.Attribute object at 0x7f4488f425f8>:<class '_ast.Attribute'>                                              
+│   │   │       │   ├── value:<_ast.Name object at 0x7f4488f42630>:<class '_ast.Name'>                                                   
+│   │   │       │   │   ├── self:<class 'str'>                                                                                           
+│   │   │       │   │   └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                 
+│   │   │       │   ├── takes_params:<class 'str'>                                                                                       
+│   │   │       │   └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                     
+│   │   │       └── args:<_ast.Call object at 0x7f4488f42668>:<class '_ast.Call'>                                                        
+│   │   │           └── func:<_ast.Attribute object at 0x7f4488f426a0>:<class '_ast.Attribute'>                                          
+│   │   │               ├── value:<_ast.Name object at 0x7f4488f426d8>:<class '_ast.Name'>                                               
+│   │   │               │   ├── self:<class 'str'>                                                                                       
+│   │   │               │   └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                             
+│   │   │               ├── something:<class 'str'>                                                                                      
+│   │   │               └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                 
+│   │   └── <_ast.Expr object at 0x7f4488f42710>:<class '_ast.Expr'>                                                                     
+│   │       └── value:<_ast.Call object at 0x7f4488f42748>:<class '_ast.Call'>                                                           
+│   │           └── func:<_ast.Attribute object at 0x7f4488f42780>:<class '_ast.Attribute'>                                              
+│   │               ├── value:<_ast.Call object at 0x7f4488f427b8>:<class '_ast.Call'>                                                   
+│   │               │   └── func:<_ast.Name object at 0x7f4488f427f0>:<class '_ast.Name'>                                                
+│   │               │       ├── ThingTwo:<class 'str'>                                                                                   
+│   │               │       └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                             
+│   │               ├── two:<class 'str'>                                                                                                
+│   │               └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                     
+│   ├── body:takes_params:<class '_ast.FunctionDef'>                                                                                     
+│   │   ├── takes_params:<class 'str'>                                                                                                   
+│   │   ├── args:<_ast.arguments object at 0x7f4488f42860>:<class '_ast.arguments'>                                                      
+│   │   │   ├── args:<_ast.arg object at 0x7f4488f42898>:<class '_ast.arg'>                                                              
+│   │   │   │   └── self:<class 'str'>                                                                                                   
+│   │   │   └── args:<_ast.arg object at 0x7f4488f428d0>:<class '_ast.arg'>                                                              
+│   │   │       └── value:<class 'str'>                                                                                                  
+│   │   ├── body:<_ast.Return object at 0x7f4488f42908>:<class '_ast.Return'>                                                            
+│   │   │   └── value:<_ast.Num object at 0x7f4488f42940>:<class '_ast.Num'>                                                             
+│   │   │       └── 3:<class 'int'>                                                                                                      
+│   │   └── <_ast.Return object at 0x7f4488f42908>:<class '_ast.Return'>                                                                 
+│   │       └── value:<_ast.Num object at 0x7f4488f42940>:<class '_ast.Num'>                                                             
+│   │           └── 3:<class 'int'>                                                                                                      
+│   ├── something:<class '_ast.FunctionDef'>                                                                                             
+│   │   ├── something:<class 'str'>                                                                                                      
+│   │   ├── args:<_ast.arguments object at 0x7f448a657080>:<class '_ast.arguments'>                                                      
+│   │   │   └── args:<_ast.arg object at 0x7f448a6570b8>:<class '_ast.arg'>                                                              
+│   │   │       └── self:<class 'str'>                                                                                                   
+│   │   ├── body:<_ast.Return object at 0x7f448a6570f0>:<class '_ast.Return'>                                                            
+│   │   │   └── value:<_ast.Num object at 0x7f448a657128>:<class '_ast.Num'>                                                             
+│   │   │       └── 0:<class 'int'>                                                                                                      
+│   │   └── <_ast.Return object at 0x7f448a6570f0>:<class '_ast.Return'>                                                                 
+│   │       └── value:<_ast.Num object at 0x7f448a657128>:<class '_ast.Num'>                                                             
+│   │           └── 0:<class 'int'>                                                                                                      
+│   ├── somethingelse:<class '_ast.FunctionDef'>                                                                                         
+│   │   ├── somethingelse:<class 'str'>                                                                                                  
+│   │   ├── args:<_ast.arguments object at 0x7f448a657198>:<class '_ast.arguments'>                                                      
+│   │   │   └── args:<_ast.arg object at 0x7f448a6571d0>:<class '_ast.arg'>                                                              
+│   │   │       └── self:<class 'str'>                                                                                                   
+│   │   ├── body:<_ast.Assign object at 0x7f4488f42518>:<class '_ast.Assign'>                                                            
+│   │   │   ├── targets:<_ast.Name object at 0x7f4488f42208>:<class '_ast.Name'>                                                         
+│   │   │   │   ├── three:<class 'str'>                                                                                                  
+│   │   │   │   └── ctx:<_ast.Store object at 0x7f448a9c2f28>:<class '_ast.Store'>                                                       
+│   │   │   └── value:<_ast.Str object at 0x7f4488f42550>:<class '_ast.Str'>                                                             
+│   │   │       └── bar:<class 'str'>                                                                                                    
+│   │   ├── body:<_ast.Expr object at 0x7f4488f42588>:<class '_ast.Expr'>                                                                
+│   │   │   └── value:<_ast.Call object at 0x7f4488f425c0>:<class '_ast.Call'>                                                           
+│   │   │       ├── func:<_ast.Attribute object at 0x7f4488f425f8>:<class '_ast.Attribute'>                                              
+│   │   │       │   ├── value:<_ast.Name object at 0x7f4488f42630>:<class '_ast.Name'>                                                   
+│   │   │       │   │   ├── self:<class 'str'>                                                                                           
+│   │   │       │   │   └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                 
+│   │   │       │   ├── takes_params:<class 'str'>                                                                                       
+│   │   │       │   └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                     
+│   │   │       └── args:<_ast.Call object at 0x7f4488f42668>:<class '_ast.Call'>                                                        
+│   │   │           └── func:<_ast.Attribute object at 0x7f4488f426a0>:<class '_ast.Attribute'>                                          
+│   │   │               ├── value:<_ast.Name object at 0x7f4488f426d8>:<class '_ast.Name'>                                               
+│   │   │               │   ├── self:<class 'str'>                                                                                       
+│   │   │               │   └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                             
+│   │   │               ├── something:<class 'str'>                                                                                      
+│   │   │               └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                 
+│   │   ├── body:<_ast.Expr object at 0x7f4488f42710>:<class '_ast.Expr'>                                                                
+│   │   │   └── value:<_ast.Call object at 0x7f4488f42748>:<class '_ast.Call'>                                                           
+│   │   │       └── func:<_ast.Attribute object at 0x7f4488f42780>:<class '_ast.Attribute'>                                              
+│   │   │           ├── value:<_ast.Call object at 0x7f4488f427b8>:<class '_ast.Call'>                                                   
+│   │   │           │   └── func:<_ast.Name object at 0x7f4488f427f0>:<class '_ast.Name'>                                                
+│   │   │           │       ├── ThingTwo:<class 'str'>                                                                                   
+│   │   │           │       └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                             
+│   │   │           ├── two:<class 'str'>                                                                                                
+│   │   │           └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                     
+│   │   ├── <_ast.Assign object at 0x7f4488f42518>:<class '_ast.Assign'>                                                                 
+│   │   │   ├── targets:<_ast.Name object at 0x7f4488f42208>:<class '_ast.Name'>                                                         
+│   │   │   │   ├── three:<class 'str'>                                                                                                  
+│   │   │   │   └── ctx:<_ast.Store object at 0x7f448a9c2f28>:<class '_ast.Store'>                                                       
+│   │   │   └── value:<_ast.Str object at 0x7f4488f42550>:<class '_ast.Str'>                                                             
+│   │   │       └── bar:<class 'str'>                                                                                                    
+│   │   ├── <_ast.Expr object at 0x7f4488f42588>:<class '_ast.Expr'>                                                                     
+│   │   │   └── value:<_ast.Call object at 0x7f4488f425c0>:<class '_ast.Call'>                                                           
+│   │   │       ├── func:<_ast.Attribute object at 0x7f4488f425f8>:<class '_ast.Attribute'>                                              
+│   │   │       │   ├── value:<_ast.Name object at 0x7f4488f42630>:<class '_ast.Name'>                                                   
+│   │   │       │   │   ├── self:<class 'str'>                                                                                           
+│   │   │       │   │   └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                 
+│   │   │       │   ├── takes_params:<class 'str'>                                                                                       
+│   │   │       │   └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                     
+│   │   │       └── args:<_ast.Call object at 0x7f4488f42668>:<class '_ast.Call'>                                                        
+│   │   │           └── func:<_ast.Attribute object at 0x7f4488f426a0>:<class '_ast.Attribute'>                                          
+│   │   │               ├── value:<_ast.Name object at 0x7f4488f426d8>:<class '_ast.Name'>                                               
+│   │   │               │   ├── self:<class 'str'>                                                                                       
+│   │   │               │   └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                             
+│   │   │               ├── something:<class 'str'>                                                                                      
+│   │   │               └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                 
+│   │   └── <_ast.Expr object at 0x7f4488f42710>:<class '_ast.Expr'>                                                                     
+│   │       └── value:<_ast.Call object at 0x7f4488f42748>:<class '_ast.Call'>                                                           
+│   │           └── func:<_ast.Attribute object at 0x7f4488f42780>:<class '_ast.Attribute'>                                              
+│   │               ├── value:<_ast.Call object at 0x7f4488f427b8>:<class '_ast.Call'>                                                   
+│   │               │   └── func:<_ast.Name object at 0x7f4488f427f0>:<class '_ast.Name'>                                                
+│   │               │       ├── ThingTwo:<class 'str'>                                                                                   
+│   │               │       └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                             
+│   │               ├── two:<class 'str'>                                                                                                
+│   │               └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                     
+│   └── takes_params:<class '_ast.FunctionDef'>                                                                                          
+│       ├── takes_params:<class 'str'>                                                                                                   
+│       ├── args:<_ast.arguments object at 0x7f4488f42860>:<class '_ast.arguments'>                                                      
+│       │   ├── args:<_ast.arg object at 0x7f4488f42898>:<class '_ast.arg'>                                                              
+│       │   │   └── self:<class 'str'>                                                                                                   
+│       │   └── args:<_ast.arg object at 0x7f4488f428d0>:<class '_ast.arg'>                                                              
+│       │       └── value:<class 'str'>                                                                                                  
+│       ├── body:<_ast.Return object at 0x7f4488f42908>:<class '_ast.Return'>                                                            
+│       │   └── value:<_ast.Num object at 0x7f4488f42940>:<class '_ast.Num'>                                                             
+│       │       └── 3:<class 'int'>                                                                                                      
+│       └── <_ast.Return object at 0x7f4488f42908>:<class '_ast.Return'>                                                                 
+│           └── value:<_ast.Num object at 0x7f4488f42940>:<class '_ast.Num'>                                                             
+│               └── 3:<class 'int'>                                                                                                      
+└── start:<class '_ast.FunctionDef'>                                                                                                     
+    ├── start:<class 'str'>                                                                                                              
+    ├── args:<_ast.arguments object at 0x7f4488f429b0>:<class '_ast.arguments'>                                                          
+    ├── body:<_ast.Return object at 0x7f4488f429e8>:<class '_ast.Return'>                                                                
+    │   └── value:<_ast.Call object at 0x7f4488f42a20>:<class '_ast.Call'>                                                               
+    │       └── func:<_ast.Attribute object at 0x7f4488f42a58>:<class '_ast.Attribute'>                                                  
+    │           ├── value:<_ast.Call object at 0x7f4488f42a90>:<class '_ast.Call'>                                                       
+    │           │   └── func:<_ast.Name object at 0x7f4488f42ac8>:<class '_ast.Name'>                                                    
+    │           │       ├── Example:<class 'str'>                                                                                        
+    │           │       └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                 
+    │           ├── somethingelse:<class 'str'>                                                                                          
+    │           └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                         
+    └── <_ast.Return object at 0x7f4488f429e8>:<class '_ast.Return'>                                                                     
+        └── value:<_ast.Call object at 0x7f4488f42a20>:<class '_ast.Call'>                                                               
+            └── func:<_ast.Attribute object at 0x7f4488f42a58>:<class '_ast.Attribute'>                                                  
+                ├── value:<_ast.Call object at 0x7f4488f42a90>:<class '_ast.Call'>                                                       
+                │   └── func:<_ast.Name object at 0x7f4488f42ac8>:<class '_ast.Name'>                                                    
+                │       ├── Example:<class 'str'>                                                                                        
+                │       └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                 
+                ├── somethingelse:<class 'str'>                                                                                          
+                └── ctx:<_ast.Load object at 0x7f448a9c2e10>:<class '_ast.Load'>                                                         

@@ -5,13 +5,16 @@ import pathlib
 
 
 def call_names(definition):
-    if isinstance(definition, funct):
-        return [(None, definition.name)]
-    else:
-        return [(definition.name, c.name) for c in definition.functs ]
+    try:
+        if isinstance(definition, funct):
+            return [(None, definition.name)]
+        else:
+            return [(definition.name, c.name) for c in definition.functs ]
+    except Exception as ex:
+        print(definition)
+        raise ex
 
 def is_called(name, definitions):
-    definitions[1].functs[1].calls
     all_calls = set()
 
     for d in definitions:
@@ -32,6 +35,7 @@ def find_roots(defintions):
         for object_name, cname in call_names(definition):
             if not is_called(cname, defintions): # has a child call
                 roots.append(".".join(filter(lambda x: x is not None, [object_name, cname])))
+
     return roots
 
 
@@ -213,6 +217,38 @@ def find_definitions(filename):
             defs.append(cls(node.name, *functs, from_file=filename))
 
     return defs
+
+
+def print_ast(node, tree, field_name=None):
+    node_name = getattr(node,'name', str(node))
+    if field_name is None:
+        field_name= ""
+    else:
+        field_name += ':'
+
+    this_node = tree.add(f'{field_name}{node_name}:{type(node)}')
+
+    for field in node._fields:
+        sub_field = getattr(node, field)
+        if sub_field is None:
+            pass
+
+        elif isinstance(sub_field, list):
+            for n in sub_field:
+                print_ast(n, this_node, field_name=field)
+        elif not isinstance(sub_field, ast.AST):
+            this_node.add(f"{sub_field}:{type(sub_field)}")
+        else:
+            print_ast(sub_field, this_node, field_name=field)
+
+    if type(node) == ast.FunctionDef or type(node) == ast.ClassDef:
+        for n in node.body:
+            if isinstance(n, str):
+                this_node.add(f"{sub_field}:str")
+            else:
+                print_ast(n, this_node)
+
+
 
 def get_names(node):
     node_name = node.name if hasattr(node, 'name') else ""

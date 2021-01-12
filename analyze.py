@@ -230,23 +230,23 @@ def print_ast(node, tree, field_name=None):
 
     for field in node._fields:
         sub_field = getattr(node, field)
+
         if sub_field is None:
             pass
 
         elif isinstance(sub_field, list):
+            if len(sub_field) > 0:
+                collection_node = this_node.add(field)
+
             for n in sub_field:
-                print_ast(n, this_node, field_name=field)
+                print_ast(n, collection_node , field_name=None)
+
         elif not isinstance(sub_field, ast.AST):
+
             this_node.add(f"{sub_field}:{type(sub_field)}")
+
         else:
             print_ast(sub_field, this_node, field_name=field)
-
-    if type(node) == ast.FunctionDef or type(node) == ast.ClassDef:
-        for n in node.body:
-            if isinstance(n, str):
-                this_node.add(f"{sub_field}:str")
-            else:
-                print_ast(n, this_node)
 
 
 

@@ -68,9 +68,9 @@ class AnalyseTest(unittest.TestCase):
         nodes = ast.parse(example_file.read()).body
         example_file.close()
 
-        self.assertIn('somethingelse', analyze.get_names(nodes[1].body[1]))
-        self.assertIn('two', analyze.get_names(nodes[1].body[1]))
-        self.assertIn('three', analyze.get_names(nodes[1].body[1]))
+        self.assertIn('two', analyze.get_names(nodes[1].body[2]))
+        self.assertIn('something', analyze.get_names(nodes[1].body[2]))
+        self.assertIn('takes_params', analyze.get_names(nodes[1].body[2]))
 
     def test_get_name_is_not_recursive(self):
         example_file = open("tests/files/example.py", 'r')

@@ -219,6 +219,28 @@ def find_definitions(filename):
     return defs
 
 
+#is this a good idea?  will this work? 
+def walk_tree(node, callback, name=None):
+    callback(this_node, name=name)
+
+    for field in node._fields:
+        sub_field = getattr(node, field)
+
+        if sub_field is None:
+            pass
+
+        elif isinstance(sub_field, list):
+            for n in sub_field:
+                walk_tree(n, callback)
+
+        elif not isinstance(sub_field, ast.AST):
+            callback(sub_field, name=field)
+
+        else:
+            walk_tree(sub_field, callback, name=field)
+
+
+
 def print_ast(node, tree, field_name=None):
     node_name = getattr(node,'name', str(node))
     if field_name is None:
@@ -254,18 +276,27 @@ def get_names(node):
     node_name = node.name if hasattr(node, 'name') else ""
     names = []
 
+    #TODO: this is some duplication here.  we are finding some of the same nodes
+    if isinstance(node, ast.Call):
+        if(isinstance(node.func, ast.Attribute)):
+            names += [node.func.attr]
+
     for field in node._fields:
         sub_node = getattr(node, field) 
-        if isinstance(sub_node, str):
-            names += [sub_node]
-            continue
+
+        if isinstance(sub_node, ast.Call):
+            if(isinstance(sub_node.func, ast.Attribute)):
+                names += [sub_node.func.attr]
+            # if isinstance of name then we are loading a class
+
         if hasattr(sub_node, '_fields'):
             names += get_names(sub_node)
         if isinstance(sub_node, list):
             sub_names = [get_names(array_node) for array_node in sub_node if hasattr(array_node, '_fields')]
             if len(sub_names) > 0:
                 names += flatten(sub_names)
-    return names
+
+    return list(set(names))
 
 
 def save_definitions_json(defintions, path):
